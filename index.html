@@ -19,7 +19,6 @@
     position: relative;
   }
 
-  /* Background running text */
   .background-text {
     position: absolute;
     width: 200%;
@@ -241,10 +240,9 @@ Tim Ion Network`;
   else if(template==="maintenance"){ message="Assalamualaikum, saya teknisi ION NETWORK. Konfirmasi jadwal perbaikan WiFi. Terima kasih.";}
   else if(template==="terminate"){ message="Assalamualaikum, saya teknisi ION NETWORK. Pengambilan perangkat berhenti berlangganan. Terima kasih.";}
   
-  window.open(`https://wa.me/${target}?text=${encodeURIComponent(message)}`,"_blank");
+  const url=`https://wa.me/${target}?text=${encodeURIComponent(message)}`;
+  window.open(url,"_blank");
 });
 </script>
-
 </body>
-  </html>
-  
+</html>
