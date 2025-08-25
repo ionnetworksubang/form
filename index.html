@@ -3,121 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <title>Form Pesan WhatsApp Ion Network</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body {
-    font-family: 'Audiowide', 'Orbitron', Arial, sans-serif;
-    background: #0a0f1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-    padding: 15px;
-    position: relative;
-  }
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Audiowide','Orbitron', Arial, sans-serif;
+  background: #0a0f1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 15px;
+  position: relative;
+}
 
-  .background-text {
-    position: absolute;
-    width: 200%;
-    white-space: nowrap;
-    font-weight: bold;
-    color: rgba(0, 255, 255, 0.05);
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    animation: scroll 30s linear infinite;
-    pointer-events: none;
-    font-size: 15vw;
-  }
+/* Background teks berjalan stabil */
+.background-text {
+  position: fixed;
+  width: 200%;
+  white-space: nowrap;
+  font-weight: bold;
+  color: rgba(0,255,255,0.05);
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation: scroll 30s linear infinite;
+  pointer-events: none;
+  font-size: 120px;
+  z-index: 0;
+}
 
-  @keyframes scroll {
-    0% { transform: translateX(0) translateY(-50%); }
-    100% { transform: translateX(-50%) translateY(-50%); }
-  }
+@keyframes scroll {
+  0% { transform: translateX(0) translateY(-50%); }
+  100% { transform: translateX(-50%) translateY(-50%); }
+}
 
-  @media(max-width: 600px){
-    .background-text { font-size: 35px; }
-  }
+@media(max-width:600px){
+  .background-text { font-size: 35px; }
+}
 
-  .container {
-    width: 100%;
-    max-width: 450px;
-    background: #0f1626;
-    border-radius: 20px;
-    padding: 25px 20px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-    position: relative;
-    border: 1px solid #00f0ff;
-    z-index: 1;
-  }
+/* Container form */
+.container {
+  width: 100%;
+  max-width: 450px;
+  background: #0f1626;
+  border-radius: 20px;
+  padding: 25px 20px;
+  box-shadow: 0 0 25px rgba(0,255,255,0.3);
+  position: relative;
+  border: 1px solid #00f0ff;
+  z-index: 1;
+}
 
-  h2 {
-    text-align: center;
-    color: #00f0ff;
-    margin-bottom: 20px;
-    font-size: 22px;
-    text-shadow: 0 0 8px #00f0ff;
-  }
+h2 {
+  text-align: center;
+  color: #00f0ff;
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-shadow: 0 0 8px #00f0ff;
+}
 
-  label {
-    display: block;
-    margin-top: 12px;
-    font-weight: 600;
-    font-size: 14px;
-    color: #a0e9ff;
-  }
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #a0e9ff;
+}
 
-  input, select {
-    width: 100%;
-    padding: 12px 12px;
-    margin-top: 6px;
-    border-radius: 12px;
-    border: 1px solid #00f0ff;
-    background: #141c2b;
-    color: #a0e9ff;
-    font-size: 14px;
-    transition: all 0.2s;
-  }
+input, select {
+  width: 100%;
+  padding: 12px 12px;
+  margin-top: 6px;
+  border-radius: 12px;
+  border: 1px solid #00f0ff;
+  background: #141c2b;
+  color: #a0e9ff;
+  font-size: 14px;
+  transition: all 0.2s;
+}
 
-  input:focus, select:focus {
-    outline: none;
-    border-color: #00ffff;
-    box-shadow: 0 0 10px #00ffff;
-  }
+input:focus, select:focus {
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff;
+}
 
-  button {
-    width: 100%;
-    margin-top: 22px;
-    padding: 14px;
-    background: #00f0ff;
-    color: #0f1626;
-    font-weight: 600;
-    font-size: 16px;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-    box-shadow: 0 0 15px #00f0ff;
-    transition: all 0.25s;
-  }
+button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  background: #00f0ff;
+  color: #0f1626;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00f0ff;
+  transition: all 0.25s;
+}
 
-  button:hover {
-    background: #00cfff;
-    box-shadow: 0 0 20px #00ffff;
-  }
+button:hover {
+  background: #00cfff;
+  box-shadow: 0 0 20px #00ffff;
+}
 
-  .hidden { display: none; opacity: 0; transition: opacity 0.3s ease; height: 0; overflow: hidden; }
-  .visible { display: block; opacity: 1; height: auto; }
+.hidden { display: none; opacity: 0; transition: opacity 0.3s ease; height: 0; overflow: hidden; }
+.visible { display: block; opacity: 1; height: auto; }
 
-  .copyright {
-    text-align: center;
-    font-size: 12px;
-    color: #00f0ff;
-    margin-top: 18px;
-    text-shadow: 0 0 5px #00f0ff;
-  }
+.copyright {
+  text-align: center;
+  font-size: 12px;
+  color: #00f0ff;
+  margin-top: 18px;
+  text-shadow: 0 0 5px #00f0ff;
+}
 </style>
 </head>
 <body>
@@ -224,25 +227,35 @@ form.addEventListener("submit",e=>{
     message=`Panduan Lengkap Pembayaran, Penggantian Sandi, dan Komplain WiFi Ion Network
 Yth. Bapak/Ibu,
 
-Akses Panduan: https://ionnetworksubang.github.io/Ion-network
+Untuk memudahkan Anda dalam melakukan pembayaran, penggantian sandi, dan komplain WiFi Ion Network, kami sediakan panduan lengkap berikut:
 
-Informasi Akun:
-- NAMA: ${nama}
-- ID PELANGGAN: ${id}
-- SANDI APK: ${sandi}
-- LINK APK: https://play.google.com/store/apps/details?id=com.ionboardband.memberionapps
+Akses Panduan
+Silakan akses link berikut untuk melihat panduan lengkap : ( https://ionnetworksubang.github.io/Ion-network )
+
+Informasi Akun
+- NAMA : ${nama}
+- ID PELANGGAN : ${id}
+- SANDI APK : ${sandi}
+- LINK APK : https://play.google.com/store/apps/details?id=com.ionboardband.memberionapps
 
 Penanggung jawab: ${pj}
 
+Hubungi penanggung jawab jika terjadi kendala pada wifi anda
+
 Hormat kami,
 Tim Ion Network`;
-  } else if(template==="pemasangan"){ message="Assalamualaikum, saya teknisi ION NETWORK. Konfirmasi jadwal pemasangan WiFi. Terima kasih.";}
-  else if(template==="maintenance"){ message="Assalamualaikum, saya teknisi ION NETWORK. Konfirmasi jadwal perbaikan WiFi. Terima kasih.";}
-  else if(template==="terminate"){ message="Assalamualaikum, saya teknisi ION NETWORK. Pengambilan perangkat berhenti berlangganan. Terima kasih.";}
-  
+  } else if(template==="pemasangan"){
+    message="Assalamualaikum, saya teknisi dari *ION NETWORK*. Konfirmasi jadwal pemasangan WiFi. Terima kasih.";
+  } else if(template==="maintenance"){
+    message="Assalamualaikum, saya teknisi dari *ION NETWORK*. Konfirmasi jadwal perbaikan WiFi. Terima kasih.";
+  } else if(template==="terminate"){
+    message="Assalamualaikum, saya teknisi dari *ION NETWORK*. Pengambilan perangkat berhenti berlangganan. Terima kasih.";
+  }
+
   const url=`https://wa.me/${target}?text=${encodeURIComponent(message)}`;
   window.open(url,"_blank");
 });
 </script>
+
 </body>
 </html>
