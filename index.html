@@ -2,85 +2,103 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Kirim Pesan Customer - Ion Network</title>
+  <title>Form Pesan WhatsApp Ion Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background:#f0f4f8;
-      padding:20px;
+      margin: 10px;
+      padding: 0;
+      background: #f8fafc;
     }
+
+    .container {
+      max-width: 420px; /* supaya pas di layar HP */
+      margin: auto;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
     h2 {
-      text-align:center;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 15px;
     }
-    form {
-      background:#fff;
-      padding:20px;
-      border-radius:10px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.1);
-      max-width:420px;
-      margin:auto;
-    }
+
     label {
-      display:block;
-      margin-top:10px;
-      font-weight:bold;
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: bold;
     }
+
     input, select, button {
-      width:100%;
-      padding:10px;
-      margin-top:5px;
-      border-radius:6px;
-      border:1px solid #ccc;
-      font-size:14px;
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 14px;
     }
+
     button {
-      background:#0d6efd;
-      color:#fff;
-      border:none;
-      margin-top:15px;
-      cursor:pointer;
-      font-weight:bold;
+      background: #2563eb;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
     }
+
     button:hover {
-      background:#0b5ed7;
+      background: #1d4ed8;
     }
-    .hidden {display:none;}
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h2>Kirim Pesan Customer - ION NETWORK</h2>
-  <form id="waForm">
-    <label for="template">Pilih Template Pesan:</label>
-    <select id="template" name="template" required>
-      <option value="">-- Pilih Template --</option>
-      <option value="panduan">Panduan Akun</option>
-      <option value="konfirmasi">Konfirmasi Pemasangan</option>
-      <option value="maintenance">Konfirmasi Maintenance</option>
-      <option value="terminate">Terminate (Pengambilan Perangkat)</option>
-    </select>
+  <div class="container">
+    <h2>Kirim Pesan WhatsApp</h2>
+    <form id="waForm">
+      <label for="target">Target Nomor (WA):</label>
+      <input type="tel" id="target" name="target" placeholder="628xxxxxxx" inputmode="numeric" required>
 
-    <div id="extraFields" class="hidden">
-      <label for="nama">Nama:</label>
-      <input type="text" id="nama" placeholder="Masukkan nama">
+      <label for="template">Pilih Template Pesan:</label>
+      <select id="template" name="template" required>
+        <option value="">-- Pilih Template --</option>
+        <option value="panduan">Panduan Pembayaran / Akun</option>
+        <option value="pemasangan">Konfirmasi Pemasangan</option>
+        <option value="maintenance">Konfirmasi Maintenance</option>
+        <option value="terminate">Terminate / Pengambilan Perangkat</option>
+      </select>
 
-      <label for="idPelanggan">ID Pelanggan:</label>
-      <input type="tel" id="idPelanggan" placeholder="Masukkan ID pelanggan" inputmode="numeric">
+      <div id="extraFields" class="hidden">
+        <label for="nama">Nama:</label>
+        <input type="text" id="nama" placeholder="Nama pelanggan">
 
-      <label for="sandi">Sandi Aplikasi:</label>
-      <input type="text" id="sandi" placeholder="Masukkan sandi aplikasi">
-    </div>
+        <label for="idPelanggan">ID Pelanggan:</label>
+        <input type="tel" id="idPelanggan" placeholder="Contoh: 1234567890" inputmode="numeric">
 
-    <label for="target">Target Nomor WhatsApp:</label>
-    <input type="tel" id="target" placeholder="Contoh: 08123456789" inputmode="numeric" required>
+        <label for="sandi">Sandi Aplikasi:</label>
+        <input type="text" id="sandi" placeholder="Contoh: 654321">
+      </div>
 
-    <button type="submit">Kirim Pesan</button>
-  </form>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+  </div>
 
   <script>
     const form = document.getElementById("waForm");
     const templateSelect = document.getElementById("template");
     const extraFields = document.getElementById("extraFields");
 
+    // tampilkan field tambahan hanya untuk panduan
     templateSelect.addEventListener("change", () => {
       if (templateSelect.value === "panduan") {
         extraFields.classList.remove("hidden");
@@ -93,26 +111,29 @@
       e.preventDefault();
 
       let target = document.getElementById("target").value.trim();
-      const template = templateSelect.value;
+      let template = document.getElementById("template").value;
+      let message = "";
 
-      // Format nomor WA
+      // validasi nomor
       if (target.startsWith("08")) {
-        target = "628" + target.slice(2);
+        target = "62" + target.substring(1);
       }
-      if (!/^\d{10,15}$/.test(target)) {
-        alert("Nomor WhatsApp tidak valid. Minimal 10 digit angka.");
+      if (!target.startsWith("62")) {
+        alert("Nomor harus diawali 62 (contoh: 6281234567890)");
+        return;
+      }
+      if (target.length < 10) {
+        alert("Nomor terlalu pendek!");
         return;
       }
 
-      let message = "";
+      // isi pesan
+      if (template === "panduan") {
+        const nama = document.getElementById("nama").value || "[NAMA]";
+        const idPelanggan = document.getElementById("idPelanggan").value || "[ID PELANGGAN]";
+        const sandi = document.getElementById("sandi").value || "[SANDI]";
 
-      switch(template) {
-        case "panduan":
-          const nama = document.getElementById("nama").value.trim() || "[Nama]";
-          const idPelanggan = document.getElementById("idPelanggan").value.trim() || "[ID]";
-          const sandi = document.getElementById("sandi").value.trim() || "[Sandi]";
-          message =
-`Panduan Lengkap Pembayaran, Penggantian Sandi, dan Komplain WiFi Ion Network
+        message = `Panduan Lengkap Pembayaran, Penggantian Sandi, dan Komplain WiFi Ion Network
 Yth. Bapak/Ibu,
 
 Untuk memudahkan Anda dalam melakukan pembayaran, penggantian sandi, dan komplain WiFi Ion Network, kami sediakan panduan lengkap berikut:
@@ -121,6 +142,8 @@ Akses Panduan
 Silakan akses link berikut untuk melihat panduan lengkap : ( https://ionnetworksubang.github.io/Ion-network )
 
 Informasi Akun
+Berikut adalah informasi akun Anda yang bersifat rahasia:
+
 - NAMA : ${nama}
 - ID PELANGGAN : ${idPelanggan}
 - SANDI APK : ${sandi}
@@ -131,25 +154,22 @@ Mohon jangan menyebarluaskan informasi akun Anda kepada orang lain.
 
 Hormat kami,
 Tim Ion Network`;
-          break;
-        case "konfirmasi":
-          message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Saya ingin mengkonfirmasi jadwal pemasangan WiFi di rumah BP/ibu. Apakah bp/ibu berkenan untuk di pasang hari ini? Terima kasih.";
-          break;
-        case "maintenance":
-          message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Saya ingin mengkonfirmasi jadwal Perbaikan WiFi di rumah BP/ibu. Apakah bp/ibu berkenan untuk di perbaiki hari ini? Terima kasih.";
-          break;
-        case "terminate":
-          message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Ingin menginformasikan untuk pengambilan perangkat yang sudah berhenti berlangganan, terimakasih.";
-          break;
-        default:
-          alert("Silakan pilih template pesan terlebih dahulu.");
-          return;
+      } 
+      else if (template === "pemasangan") {
+        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Saya ingin mengkonfirmasi jadwal pemasangan WiFi di rumah BP/ibu. Apakah bp/ibu berkenan untuk di pasang hari ini? Terima kasih.";
+      } 
+      else if (template === "maintenance") {
+        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Saya ingin mengkonfirmasi jadwal Perbaikan WiFi di rumah BP/ibu. Apakah bp/ibu berkenan untuk di perbaiki hari ini? Terima kasih.";
+      } 
+      else if (template === "terminate") {
+        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Ingin menginformasikan untuk pengambilan perangkat yang sudah berhenti berlangganan, terimakasih.";
       }
 
-      const waLink = `https://wa.me/${target}?text=${encodeURIComponent(message)}`;
-      window.open(waLink, "_blank");
+      // buka WA
+      const url = `https://wa.me/${target}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
     });
   </script>
 </body>
-  </html>
+                                                </html>
   
