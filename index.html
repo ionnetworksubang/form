@@ -1,236 +1,250 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Form Pesan WhatsApp Ion Network</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Reset dan font */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f1f5f9;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<title>Form Pesan WhatsApp Ion Network</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body {
+    font-family: 'Audiowide', 'Orbitron', Arial, sans-serif;
+    background: #0a0f1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 15px;
+    position: relative;
+  }
 
-    /* Container form */
-    .container {
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 25px 20px;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
+  /* Background running text */
+  .background-text {
+    position: absolute;
+    width: 200%;
+    white-space: nowrap;
+    font-weight: bold;
+    color: rgba(0, 255, 255, 0.05);
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    animation: scroll 30s linear infinite;
+    pointer-events: none;
+    font-size: 15vw;
+  }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1e3a8a;
-    }
+  @keyframes scroll {
+    0% { transform: translateX(0) translateY(-50%); }
+    100% { transform: translateX(-50%) translateY(-50%); }
+  }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 14px;
-      color: #1e293b;
-    }
+  @media(max-width: 600px){
+    .background-text { font-size: 35px; }
+  }
 
-    input, select {
-      width: 100%;
-      padding: 12px 10px;
-      margin-top: 6px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      font-size: 14px;
-      transition: all 0.2s;
-    }
+  .container {
+    width: 100%;
+    max-width: 450px;
+    background: #0f1626;
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+    position: relative;
+    border: 1px solid #00f0ff;
+    z-index: 1;
+  }
 
-    input:focus, select:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 5px rgba(59,130,246,0.3);
-    }
+  h2 {
+    text-align: center;
+    color: #00f0ff;
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-shadow: 0 0 8px #00f0ff;
+  }
 
-    button {
-      width: 100%;
-      margin-top: 25px;
-      padding: 12px;
-      background: #3b82f6;
-      color: #fff;
-      font-weight: 600;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 10px rgba(59,130,246,0.3);
-    }
+  label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #a0e9ff;
+  }
 
-    button:hover {
-      background: #2563eb;
-      box-shadow: 0 6px 12px rgba(59,130,246,0.4);
-    }
+  input, select {
+    width: 100%;
+    padding: 12px 12px;
+    margin-top: 6px;
+    border-radius: 12px;
+    border: 1px solid #00f0ff;
+    background: #141c2b;
+    color: #a0e9ff;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
 
-    .hidden {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      height: 0;
-      overflow: hidden;
-    }
+  input:focus, select:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+  }
 
-    .visible {
-      display: block;
-      opacity: 1;
-      height: auto;
-    }
-  </style>
+  button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px;
+    background: #00f0ff;
+    color: #0f1626;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00f0ff;
+    transition: all 0.25s;
+  }
+
+  button:hover {
+    background: #00cfff;
+    box-shadow: 0 0 20px #00ffff;
+  }
+
+  .hidden { display: none; opacity: 0; transition: opacity 0.3s ease; height: 0; overflow: hidden; }
+  .visible { display: block; opacity: 1; height: auto; }
+
+  .copyright {
+    text-align: center;
+    font-size: 12px;
+    color: #00f0ff;
+    margin-top: 18px;
+    text-shadow: 0 0 5px #00f0ff;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h2>Kirim Pesan WhatsApp</h2>
-    <form id="waForm">
-      <label for="target">Target Nomor (WA):</label>
-      <input type="tel" id="target" placeholder="628xxxxxxx" inputmode="numeric" required>
 
-      <label for="template">Pilih Template Pesan:</label>
-      <select id="template" required>
-        <option value="">-- Pilih Template --</option>
-        <option value="panduan">Panduan Pembayaran / Akun</option>
-        <option value="pemasangan">Konfirmasi Pemasangan</option>
-        <option value="maintenance">Konfirmasi Maintenance</option>
-        <option value="terminate">Terminate / Pengambilan Perangkat</option>
+<div class="background-text">Jhon &nbsp; Jhon &nbsp; Jhon &nbsp; Jhon &nbsp; Jhon &nbsp;</div>
+
+<div class="container">
+  <h2>Kirim Pesan WhatsApp</h2>
+  <form id="waForm">
+    <label>Target Nomor (WA):</label>
+    <input type="tel" id="target" placeholder="628xxxxxxx" inputmode="numeric" required>
+
+    <label>Pilih Template Pesan:</label>
+    <select id="template" required>
+      <option value="">-- Pilih Template --</option>
+      <option value="panduan">Panduan Pembayaran / Akun</option>
+      <option value="pemasangan">Konfirmasi Pemasangan</option>
+      <option value="maintenance">Konfirmasi Maintenance</option>
+      <option value="terminate">Terminate / Pengambilan Perangkat</option>
+    </select>
+
+    <div id="extraFields" class="hidden">
+      <label>Nama:</label>
+      <input type="text" id="nama" placeholder="Nama pelanggan">
+
+      <label>ID Pelanggan:</label>
+      <input type="tel" id="idPelanggan" placeholder="Contoh: 1234567890">
+
+      <label>Sandi Aplikasi:</label>
+      <input type="text" id="sandi" placeholder="Contoh: 654321">
+
+      <label>Penanggung Jawab:</label>
+      <select id="penanggungJawabSelect">
+        <option value="JAKA NUGRAHA - 085321525261">JAKA NUGRAHA - 085321525261</option>
+        <option value="Achmed - 082130339580">Achmed - 082130339580</option>
+        <option value="Alex - 082315919466">Alex - 082315919466</option>
+        <option value="Anjar - 083134944914">Anjar - 083134944914</option>
+        <option value="Chadika - 085175402270">Chadika - 085175402270</option>
+        <option value="Deni - 083142076756">Deni - 083142076756</option>
+        <option value="Gani - 089501960296">Gani - 089501960296</option>
+        <option value="Gilang - 083829349013">Gilang - 083829349013</option>
+        <option value="Lili - 082320215241">Lili - 082320215241</option>
+        <option value="Uci - 081221500616">Uci - 081221500616</option>
+        <option value="Romi Kantomi - 085860417890">Romi Kantomi - 085860417890</option>
+        <option value="Soleh - 083837105050">Soleh - 083837105050</option>
+        <option value="Taufik - 082321558345">Taufik - 082321558345</option>
+        <option value="Firli - 083856525355">Firli - 083856525355</option>
+        <option value="Delia - 088220333578">Delia - 088220333578</option>
+        <option value="lainnya">Lainnya</option>
       </select>
 
-      <div id="extraFields" class="hidden">
-        <label for="nama">Nama:</label>
-        <input type="text" id="nama" placeholder="Nama pelanggan">
+      <input type="text" id="penanggungJawabManual" placeholder="Ketik Nama - No HP" class="hidden">
+    </div>
 
-        <label for="idPelanggan">ID Pelanggan:</label>
-        <input type="tel" id="idPelanggan" placeholder="Contoh: 1234567890" inputmode="numeric">
+    <button type="submit">Kirim Pesan</button>
+  </form>
+  <div class="copyright">© Jhon 2025</div>
+</div>
 
-        <label for="sandi">Sandi Aplikasi:</label>
-        <input type="text" id="sandi" placeholder="Contoh: 654321">
+<script>
+const form=document.getElementById("waForm");
+const templateSelect=document.getElementById("template");
+const extraFields=document.getElementById("extraFields");
+const penanggungSelect=document.getElementById("penanggungJawabSelect");
+const penanggungManual=document.getElementById("penanggungJawabManual");
 
-        <label for="penanggungJawabSelect">Penanggung Jawab:</label>
-        <select id="penanggungJawabSelect">
-          <option value="JAKA NUGRAHA - 085321525261">JAKA NUGRAHA - 085321525261</option>
-          <option value="Achmed - 082130339580">Achmed - 082130339580</option>
-          <option value="Alex - 082315919466">Alex - 082315919466</option>
-          <option value="Anjar - 083134944914">Anjar - 083134944914</option>
-          <option value="Chadika - 085175402270">Chadika - 085175402270</option>
-          <option value="Deni - 083142076756">Deni - 083142076756</option>
-          <option value="Gani - 089501960296">Gani - 089501960296</option>
-          <option value="Gilang - 083829349013">Gilang - 083829349013</option>
-          <option value="Lili - 082320215241">Lili - 082320215241</option>
-          <option value="Uci - 081221500616">Uci - 081221500616</option>
-          <option value="Romi Kantomi - 085860417890">Romi Kantomi - 085860417890</option>
-          <option value="Soleh - 083837105050">Soleh - 083837105050</option>
-          <option value="Taufik - 082321558345">Taufik - 082321558345</option>
-          <option value="Firli - 083856525355">Firli - 083856525355</option>
-          <option value="Delia - 088220333578">Delia - 088220333578</option>
-          <option value="lainnya">Lainnya</option>
-        </select>
+templateSelect.addEventListener("change",()=>{
+  if(templateSelect.value==="panduan"){
+    extraFields.classList.add("visible");
+    extraFields.classList.remove("hidden");
+  } else {
+    extraFields.classList.add("hidden");
+    extraFields.classList.remove("visible");
+  }
+  penanggungManual.classList.add("hidden");
+  penanggungSelect.value=penanggungSelect.options[0].value;
+});
 
-        <input type="text" id="penanggungJawabManual" placeholder="Ketik Nama - No HP" class="hidden">
-      </div>
+penanggungSelect.addEventListener("change",()=>{
+  if(penanggungSelect.value==="lainnya"){
+    penanggungManual.classList.add("visible");
+    penanggungManual.classList.remove("hidden");
+  } else {
+    penanggungManual.classList.add("hidden");
+    penanggungManual.classList.remove("visible");
+  }
+});
 
-      <button type="submit">Kirim Pesan</button>
-    </form>
-  </div>
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  let target=document.getElementById("target").value.trim();
+  let template=templateSelect.value;
+  let message="";
+  if(target.startsWith("08")) target="62"+target.substring(1);
+  if(!target.startsWith("62")){ alert("Nomor harus diawali 62"); return; }
+  if(target.length<10){ alert("Nomor terlalu pendek!"); return; }
 
-  <script>
-    const form = document.getElementById("waForm");
-    const templateSelect = document.getElementById("template");
-    const extraFields = document.getElementById("extraFields");
-    const penanggungJawabSelect = document.getElementById("penanggungJawabSelect");
-    const penanggungJawabManual = document.getElementById("penanggungJawabManual");
-
-    templateSelect.addEventListener("change", () => {
-      if (templateSelect.value === "panduan") {
-        extraFields.classList.add("visible");
-        extraFields.classList.remove("hidden");
-      } else {
-        extraFields.classList.add("hidden");
-        extraFields.classList.remove("visible");
-      }
-      // reset manual input
-      penanggungJawabManual.classList.add("hidden");
-      penanggungJawabSelect.value = penanggungJawabSelect.options[0].value;
-    });
-
-    penanggungJawabSelect.addEventListener("change", () => {
-      if (penanggungJawabSelect.value === "lainnya") {
-        penanggungJawabManual.classList.add("visible");
-        penanggungJawabManual.classList.remove("hidden");
-      } else {
-        penanggungJawabManual.classList.add("hidden");
-        penanggungJawabManual.classList.remove("visible");
-      }
-    });
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      let target = document.getElementById("target").value.trim();
-      let template = templateSelect.value;
-      let message = "";
-
-      if (target.startsWith("08")) target = "62" + target.substring(1);
-      if (!target.startsWith("62")) { alert("Nomor harus diawali 62"); return; }
-      if (target.length < 10) { alert("Nomor terlalu pendek!"); return; }
-
-      if(template === "panduan"){
-        const nama = document.getElementById("nama").value || "[NAMA]";
-        const idPelanggan = document.getElementById("idPelanggan").value || "[ID PELANGGAN]";
-        const sandi = document.getElementById("sandi").value || "[SANDI]";
-        let penanggungJawab = penanggungJawabSelect.value;
-        if(penanggungJawab === "lainnya"){
-          penanggungJawab = penanggungJawabManual.value || "[PENANGGUNG JAWAB]";
-        }
-
-        message = `Panduan Lengkap Pembayaran, Penggantian Sandi, dan Komplain WiFi Ion Network
+  if(template==="panduan"){
+    const nama=document.getElementById("nama").value||"[NAMA]";
+    const id=document.getElementById("idPelanggan").value||"[ID PELANGGAN]";
+    const sandi=document.getElementById("sandi").value||"[SANDI]";
+    let pj=penanggungSelect.value;
+    if(pj==="lainnya") pj=penanggungManual.value||"[PENANGGUNG JAWAB]";
+    message=`Panduan Lengkap Pembayaran, Penggantian Sandi, dan Komplain WiFi Ion Network
 Yth. Bapak/Ibu,
 
-Untuk memudahkan Anda dalam melakukan pembayaran, penggantian sandi, dan komplain WiFi Ion Network, kami sediakan panduan lengkap berikut:
+Akses Panduan: https://ionnetworksubang.github.io/Ion-network
 
-Akses Panduan
-Silakan akses link berikut untuk melihat panduan lengkap : ( https://ionnetworksubang.github.io/Ion-network )
+Informasi Akun:
+- NAMA: ${nama}
+- ID PELANGGAN: ${id}
+- SANDI APK: ${sandi}
+- LINK APK: https://play.google.com/store/apps/details?id=com.ionboardband.memberionapps
 
-Informasi Akun
-- NAMA : ${nama}
-- ID PELANGGAN : ${idPelanggan}
-- SANDI APK : ${sandi}
-- LINK APK : https://play.google.com/store/apps/details?id=com.ionboardband.memberionapps
-
-Penanggung jawab: ${penanggungJawab}
-
-Hubungi penanggung jawab jika terjadi kendala pada wifi anda
+Penanggung jawab: ${pj}
 
 Hormat kami,
 Tim Ion Network`;
+  } else if(template==="pemasangan"){ message="Assalamualaikum, saya teknisi ION NETWORK. Konfirmasi jadwal pemasangan WiFi. Terima kasih.";}
+  else if(template==="maintenance"){ message="Assalamualaikum, saya teknisi ION NETWORK. Konfirmasi jadwal perbaikan WiFi. Terima kasih.";}
+  else if(template==="terminate"){ message="Assalamualaikum, saya teknisi ION NETWORK. Pengambilan perangkat berhenti berlangganan. Terima kasih.";}
+  
+  window.open(`https://wa.me/${target}?text=${encodeURIComponent(message)}`,"_blank");
+});
+</script>
 
-      } else if(template === "pemasangan"){
-        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Konfirmasi jadwal pemasangan WiFi. Terima kasih.";
-      } else if(template === "maintenance"){
-        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Konfirmasi jadwal perbaikan WiFi. Terima kasih.";
-      } else if(template === "terminate"){
-        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Pengambilan perangkat berhenti berlangganan. Terima kasih.";
-      }
-
-      const url = `https://wa.me/${target}?text=${encodeURIComponent(message)}`;
-      window.open(url, "_blank");
-    });
-  </script>
 </body>
   </html>
   
