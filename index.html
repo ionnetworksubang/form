@@ -5,60 +5,93 @@
   <title>Form Pesan WhatsApp Ion Network</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Reset dan font */
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      margin: 10px;
-      padding: 0;
-      background: #f8fafc;
+      font-family: 'Arial', sans-serif;
+      background-color: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
+    /* Container form */
     .container {
-      max-width: 420px; /* supaya pas di layar HP */
-      margin: auto;
-      background: white;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 25px 20px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     h2 {
-      font-size: 18px;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      color: #1e3a8a;
     }
 
     label {
       display: block;
-      margin-top: 10px;
+      margin-top: 15px;
+      font-weight: 600;
       font-size: 14px;
-      font-weight: bold;
+      color: #1e293b;
     }
 
-    input, select, button {
+    input, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 8px;
+      padding: 12px 10px;
+      margin-top: 6px;
+      border-radius: 10px;
       border: 1px solid #cbd5e1;
       font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 5px rgba(59,130,246,0.3);
     }
 
     button {
-      background: #2563eb;
-      color: white;
+      width: 100%;
+      margin-top: 25px;
+      padding: 12px;
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
       border: none;
-      margin-top: 15px;
-      font-weight: bold;
+      border-radius: 10px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s;
+      box-shadow: 0 4px 10px rgba(59,130,246,0.3);
     }
 
     button:hover {
-      background: #1d4ed8;
+      background: #2563eb;
+      box-shadow: 0 6px 12px rgba(59,130,246,0.4);
     }
 
     .hidden {
       display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .visible {
+      display: block;
+      opacity: 1;
+      height: auto;
     }
   </style>
 </head>
@@ -67,10 +100,10 @@
     <h2>Kirim Pesan WhatsApp</h2>
     <form id="waForm">
       <label for="target">Target Nomor (WA):</label>
-      <input type="tel" id="target" name="target" placeholder="628xxxxxxx" inputmode="numeric" required>
+      <input type="tel" id="target" placeholder="628xxxxxxx" inputmode="numeric" required>
 
       <label for="template">Pilih Template Pesan:</label>
-      <select id="template" name="template" required>
+      <select id="template" required>
         <option value="">-- Pilih Template --</option>
         <option value="panduan">Panduan Pembayaran / Akun</option>
         <option value="pemasangan">Konfirmasi Pemasangan</option>
@@ -87,6 +120,28 @@
 
         <label for="sandi">Sandi Aplikasi:</label>
         <input type="text" id="sandi" placeholder="Contoh: 654321">
+
+        <label for="penanggungJawabSelect">Penanggung Jawab:</label>
+        <select id="penanggungJawabSelect">
+          <option value="JAKA NUGRAHA - 085321525261">JAKA NUGRAHA - 085321525261</option>
+          <option value="Achmed - 082130339580">Achmed - 082130339580</option>
+          <option value="Alex - 082315919466">Alex - 082315919466</option>
+          <option value="Anjar - 083134944914">Anjar - 083134944914</option>
+          <option value="Chadika - 085175402270">Chadika - 085175402270</option>
+          <option value="Deni - 083142076756">Deni - 083142076756</option>
+          <option value="Gani - 089501960296">Gani - 089501960296</option>
+          <option value="Gilang - 083829349013">Gilang - 083829349013</option>
+          <option value="Lili - 082320215241">Lili - 082320215241</option>
+          <option value="Uci - 081221500616">Uci - 081221500616</option>
+          <option value="Romi Kantomi - 085860417890">Romi Kantomi - 085860417890</option>
+          <option value="Soleh - 083837105050">Soleh - 083837105050</option>
+          <option value="Taufik - 082321558345">Taufik - 082321558345</option>
+          <option value="Firli - 083856525355">Firli - 083856525355</option>
+          <option value="Delia - 088220333578">Delia - 088220333578</option>
+          <option value="lainnya">Lainnya</option>
+        </select>
+
+        <input type="text" id="penanggungJawabManual" placeholder="Ketik Nama - No HP" class="hidden">
       </div>
 
       <button type="submit">Kirim Pesan</button>
@@ -97,13 +152,29 @@
     const form = document.getElementById("waForm");
     const templateSelect = document.getElementById("template");
     const extraFields = document.getElementById("extraFields");
+    const penanggungJawabSelect = document.getElementById("penanggungJawabSelect");
+    const penanggungJawabManual = document.getElementById("penanggungJawabManual");
 
-    // tampilkan field tambahan hanya untuk panduan
     templateSelect.addEventListener("change", () => {
       if (templateSelect.value === "panduan") {
+        extraFields.classList.add("visible");
         extraFields.classList.remove("hidden");
       } else {
         extraFields.classList.add("hidden");
+        extraFields.classList.remove("visible");
+      }
+      // reset manual input
+      penanggungJawabManual.classList.add("hidden");
+      penanggungJawabSelect.value = penanggungJawabSelect.options[0].value;
+    });
+
+    penanggungJawabSelect.addEventListener("change", () => {
+      if (penanggungJawabSelect.value === "lainnya") {
+        penanggungJawabManual.classList.add("visible");
+        penanggungJawabManual.classList.remove("hidden");
+      } else {
+        penanggungJawabManual.classList.add("hidden");
+        penanggungJawabManual.classList.remove("visible");
       }
     });
 
@@ -111,27 +182,21 @@
       e.preventDefault();
 
       let target = document.getElementById("target").value.trim();
-      let template = document.getElementById("template").value;
+      let template = templateSelect.value;
       let message = "";
 
-      // validasi nomor
-      if (target.startsWith("08")) {
-        target = "62" + target.substring(1);
-      }
-      if (!target.startsWith("62")) {
-        alert("Nomor harus diawali 62 (contoh: 6281234567890)");
-        return;
-      }
-      if (target.length < 10) {
-        alert("Nomor terlalu pendek!");
-        return;
-      }
+      if (target.startsWith("08")) target = "62" + target.substring(1);
+      if (!target.startsWith("62")) { alert("Nomor harus diawali 62"); return; }
+      if (target.length < 10) { alert("Nomor terlalu pendek!"); return; }
 
-      // isi pesan
-      if (template === "panduan") {
+      if(template === "panduan"){
         const nama = document.getElementById("nama").value || "[NAMA]";
         const idPelanggan = document.getElementById("idPelanggan").value || "[ID PELANGGAN]";
         const sandi = document.getElementById("sandi").value || "[SANDI]";
+        let penanggungJawab = penanggungJawabSelect.value;
+        if(penanggungJawab === "lainnya"){
+          penanggungJawab = penanggungJawabManual.value || "[PENANGGUNG JAWAB]";
+        }
 
         message = `Panduan Lengkap Pembayaran, Penggantian Sandi, dan Komplain WiFi Ion Network
 Yth. Bapak/Ibu,
@@ -142,34 +207,30 @@ Akses Panduan
 Silakan akses link berikut untuk melihat panduan lengkap : ( https://ionnetworksubang.github.io/Ion-network )
 
 Informasi Akun
-Berikut adalah informasi akun Anda yang bersifat rahasia:
-
 - NAMA : ${nama}
 - ID PELANGGAN : ${idPelanggan}
 - SANDI APK : ${sandi}
 - LINK APK : https://play.google.com/store/apps/details?id=com.ionboardband.memberionapps
 
-Peringatan
-Mohon jangan menyebarluaskan informasi akun Anda kepada orang lain.
+Penanggung jawab: ${penanggungJawab}
+
+Hubungi penanggung jawab jika terjadi kendala pada wifi anda
 
 Hormat kami,
 Tim Ion Network`;
-      } 
-      else if (template === "pemasangan") {
-        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Saya ingin mengkonfirmasi jadwal pemasangan WiFi di rumah BP/ibu. Apakah bp/ibu berkenan untuk di pasang hari ini? Terima kasih.";
-      } 
-      else if (template === "maintenance") {
-        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Saya ingin mengkonfirmasi jadwal Perbaikan WiFi di rumah BP/ibu. Apakah bp/ibu berkenan untuk di perbaiki hari ini? Terima kasih.";
-      } 
-      else if (template === "terminate") {
-        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Ingin menginformasikan untuk pengambilan perangkat yang sudah berhenti berlangganan, terimakasih.";
+
+      } else if(template === "pemasangan"){
+        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Konfirmasi jadwal pemasangan WiFi. Terima kasih.";
+      } else if(template === "maintenance"){
+        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Konfirmasi jadwal perbaikan WiFi. Terima kasih.";
+      } else if(template === "terminate"){
+        message = "Assalamualaikum, saya teknisi dari *ION NETWORK*. Pengambilan perangkat berhenti berlangganan. Terima kasih.";
       }
 
-      // buka WA
       const url = `https://wa.me/${target}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank");
     });
   </script>
 </body>
-                                                </html>
+  </html>
   
