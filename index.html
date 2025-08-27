@@ -18,8 +18,6 @@ body {
   padding: 15px;
   position: relative;
 }
-
-/* Background teks berjalan stabil */
 .background-text {
   position: fixed;
   width: 200%;
@@ -34,17 +32,13 @@ body {
   font-size: 120px;
   z-index: 0;
 }
-
 @keyframes scroll {
   0% { transform: translateX(0) translateY(-50%); }
   100% { transform: translateX(-50%) translateY(-50%); }
 }
-
 @media(max-width:600px){
   .background-text { font-size: 35px; }
 }
-
-/* Container form */
 .container {
   width: 100%;
   max-width: 450px;
@@ -56,7 +50,6 @@ body {
   border: 1px solid #00f0ff;
   z-index: 1;
 }
-
 h2 {
   text-align: center;
   color: #00f0ff;
@@ -64,7 +57,6 @@ h2 {
   font-size: 22px;
   text-shadow: 0 0 8px #00f0ff;
 }
-
 label {
   display: block;
   margin-top: 12px;
@@ -72,7 +64,6 @@ label {
   font-size: 14px;
   color: #a0e9ff;
 }
-
 input, select {
   width: 100%;
   padding: 12px 12px;
@@ -84,13 +75,11 @@ input, select {
   font-size: 14px;
   transition: all 0.2s;
 }
-
 input:focus, select:focus {
   outline: none;
   border-color: #00ffff;
   box-shadow: 0 0 10px #00ffff;
 }
-
 button {
   width: 100%;
   margin-top: 22px;
@@ -105,15 +94,22 @@ button {
   box-shadow: 0 0 15px #00f0ff;
   transition: all 0.25s;
 }
-
 button:hover {
   background: #00cfff;
   box-shadow: 0 0 20px #00ffff;
 }
-
 .hidden { display: none; opacity: 0; transition: opacity 0.3s ease; height: 0; overflow: hidden; }
 .visible { display: block; opacity: 1; height: auto; }
-
+#ambilKontak {
+  margin-top: 10px;
+  background: #1affd5;
+  color: #0f1626;
+  font-size: 14px;
+}
+#ambilKontak:hover {
+  background: #00c9a7;
+  box-shadow: 0 0 15px #1affd5;
+}
 .copyright {
   text-align: center;
   font-size: 12px;
@@ -173,6 +169,7 @@ button:hover {
       </select>
 
       <input type="text" id="penanggungJawabManual" placeholder="Ketik Nama - No HP" class="hidden">
+      <button type="button" id="ambilKontak" class="hidden">📇 Ambil dari Kontak</button>
     </div>
 
     <button type="submit">Kirim Pesan</button>
@@ -186,6 +183,7 @@ const templateSelect=document.getElementById("template");
 const extraFields=document.getElementById("extraFields");
 const penanggungSelect=document.getElementById("penanggungJawabSelect");
 const penanggungManual=document.getElementById("penanggungJawabManual");
+const btnKontak=document.getElementById("ambilKontak");
 
 templateSelect.addEventListener("change",()=>{
   if(templateSelect.value==="panduan"){
@@ -196,6 +194,7 @@ templateSelect.addEventListener("change",()=>{
     extraFields.classList.remove("visible");
   }
   penanggungManual.classList.add("hidden");
+  btnKontak.classList.add("hidden");
   penanggungSelect.value=penanggungSelect.options[0].value;
 });
 
@@ -203,9 +202,29 @@ penanggungSelect.addEventListener("change",()=>{
   if(penanggungSelect.value==="lainnya"){
     penanggungManual.classList.add("visible");
     penanggungManual.classList.remove("hidden");
+    btnKontak.classList.remove("hidden");
   } else {
     penanggungManual.classList.add("hidden");
     penanggungManual.classList.remove("visible");
+    btnKontak.classList.add("hidden");
+  }
+});
+
+// Tombol ambil kontak (experimental Web API)
+btnKontak.addEventListener("click", async ()=>{
+  if(!("contacts" in navigator && "select" in navigator.contacts)){
+    alert("Fitur ambil kontak belum didukung di browser ini.");
+    return;
+  }
+  try {
+    const kontak=await navigator.contacts.select(["name","tel"],{multiple:false});
+    if(kontak.length>0){
+      const nama=kontak[0].name?kontak[0].name[0]:"";
+      const nohp=kontak[0].tel?kontak[0].tel[0]:"";
+      penanggungManual.value=`${nama} - ${nohp}`;
+    }
+  } catch(err){
+    console.error("Gagal ambil kontak:",err);
   }
 });
 
